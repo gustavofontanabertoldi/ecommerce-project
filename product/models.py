@@ -2,14 +2,14 @@ from django.db import models
 from PIL import Image
 from django.conf import settings
 import os
-
+from django.utils.text import slugify
 
 class Product(models.Model):
     name = models.CharField(max_length=100)
     short_description = models.TextField(max_length=100)
     long_description = models.TextField(max_length=255)
-    imagem = models.ImageField(upload_to="product_images/%Y/%m/", blank=True, null=True)
-    slug = models.SlugField(unique=True)
+    image = models.ImageField(upload_to="product_images/%Y/%m/", blank=True, null=True)
+    slug = models.SlugField(unique=True, blank=True, null=True)
     price_marketing = models.FloatField(default=0)
     price_marketing_off = models.FloatField(default=0) #discount
     tipo = models.CharField(
@@ -41,6 +41,10 @@ class Product(models.Model):
         print("Imagem redimencionada")
 
     def save(self, *args, **kwargs):
+        if not self.slug:
+            slug = f'{slugify(self.name)}'
+            self.slug = slug
+
         super().save(*args, **kwargs)
 
         max_image_size = 800
