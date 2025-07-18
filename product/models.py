@@ -3,6 +3,7 @@ from PIL import Image
 from django.conf import settings
 import os
 from django.utils.text import slugify
+from utils import utils
 
 class Product(models.Model):
     name = models.CharField(max_length=100)
@@ -20,6 +21,14 @@ class Product(models.Model):
             ('S', 'Simples'),
         ),
     )
+
+    def get_format_price(self):
+        return utils.format_price(self.price_marketing)
+    get_format_price.short_description = "Price"
+
+    def get_format_marketing_price(self):
+        return utils.format_price(self.price_marketing_off)
+    get_format_price.short_description = "Promotion Price"
 
     @staticmethod
     def resize_image(img, new_width=800):
