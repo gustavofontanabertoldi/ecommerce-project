@@ -1,7 +1,8 @@
 from django.template import Library
+from django import template
 from utils import utils
 
-register = Library()
+register = template.Library()
 
 @register.filter
 def format_price(val):

@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from  django.views.generic.list import ListView
+from  django.views.generic.detail import DetailView
 from django.views import View
 from django.http import HttpResponse
 from . import models
@@ -11,9 +12,11 @@ class ProductList(ListView):
     context_object_name = "products"
     paginate_by = 10
 
-class ProductDetail(View):
-    def get(*args, **kwargs):
-        return HttpResponse("productDetail")
+class ProductDetail(DetailView):
+    model = models.Product
+    template_name = 'product/Detail.html'
+    context_object_name = "product"
+    slug_url_kwarg = 'slug'
 
 class AddToCart(View):
     def get(*args, **kwargs):

@@ -1,3 +1,5 @@
+//altera o preço baseado nas promoções
+
 (function () {
     select_variacao = document.getElementById('select-variacoes');
     variation_preco = document.getElementById('variation-preco');
