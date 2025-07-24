@@ -14,6 +14,7 @@ class ProductList(ListView):
     template_name = 'product/List.html'
     context_object_name = "products"
     paginate_by = 10
+    ordering = ['price_marketing_off']
 
 class ProductDetail(DetailView):
     model = models.Product
@@ -150,6 +151,6 @@ class Cart(View):
         }
         return render(self.request, 'product/cart.html', context)
 
-class Finish(View):
+class PurchaseSummary(View):
     def get(*args, **kwargs):
         return HttpResponse("Finish")
